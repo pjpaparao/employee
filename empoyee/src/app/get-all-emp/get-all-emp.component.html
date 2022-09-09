@@ -1,0 +1,172 @@
+
+<div class="container">
+    <form [formGroup]="ticketReg" (onSubmit)="submit(ticketReg)">
+        <div class="card p-4 mt-5">
+
+            <div class="row g-3">
+                <div class="col-lg-6 col-md-12">
+                    <!-- <div class="form-floating">
+                    <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                    <label>First Name</label>
+                </div> -->
+                    <img src="assets/flights.jpg" class="img-fluid img-thumbnail" />
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="col-12 mb-4">
+                        <h4>Flight Detais</h4>
+                    </div>
+                    <div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fligh No</th>
+                                    <th scope="col">Business(INR)</th>
+                                    <th scope="col">Economy(INR)</th>
+                                    <th scope="col">Premium(INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>FLI123</td>
+                                    <td>2000.00</td>
+                                    <td>2500.00</td>
+                                    <td>10000.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 mb-4">
+                    <h4>Flight Booking</h4>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                        <label>First Name
+                        <span 
+                        class="text-danger" 
+                        *ngIf="ticketReg.get('firstName')?.errors && 
+                        ticketReg?.get('firstName')?.hasError('required')"
+                    >*</span>
+                </label>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                        <label>Last Name<span 
+                            class="text-danger" 
+                            *ngIf="ticketReg.get('lastName')?.errors && 
+                            ticketReg?.get('lastName')?.hasError('required')"
+                        >*</span>
+                    </label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="fromDate" placeholder="FLYING FROM">
+                        <label>FLYING FROM<span 
+                            class="text-danger" 
+                            *ngIf="ticketReg.get('fromDate')?.errors && 
+                            ticketReg?.get('fromDate')?.hasError('required')"
+                        >*</span></label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="toDate" placeholder="FLYING TO">
+                        <label>FLYING TO<span 
+                            class="text-danger" 
+                            *ngIf="ticketReg.get('toDate')?.errors && 
+                            ticketReg?.get('toDate')?.hasError('required')"
+                        >*</span></label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" formControlName="departing" placeholder="DEPARTING">
+                        <label>DEPARTING<span 
+                            class="text-danger" 
+                            *ngIf="ticketReg.get('departing')?.errors && 
+                            ticketReg?.get('departing')?.hasError('required')"
+                        >*</span></label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" formControlName="returning" placeholder="RETURNING">
+                        <label>RETURNING<span 
+                            class="text-danger" 
+                            *ngIf="ticketReg.get('returning')?.errors && 
+                            ticketReg?.get('returning')?.hasError('required')"
+                        >*</span></label>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="form-floating">
+                        <select class="form-select" formControlName="classType">
+                            <option selected="" hidden="">Open this select menu</option>
+                            <option value="1">Economy</option>
+                            <option value="2">Premium</option>
+                            <option value="3">Business</option>
+                        </select>
+                        <label>TRAVEL CLASS<span 
+                            class="text-danger" 
+                            *ngIf="ticketReg.get('classType')?.errors && 
+                            ticketReg?.get('classType')?.hasError('required')"
+                        >*</span></label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-floating">
+                        <button class="btn btn-success" type="button" (click)="submit(ticketReg)" [disabled]="ticketReg.invalid">Submit</button>&nbsp;
+                        <button class="btn btn-danger" type="button" (click)="clearForm()">Clear</button>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="!editTicketFlag">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ticked Id</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Departing</th>
+                    <th scope="col">Returning</th>
+                    <th scope="col">Class Type</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ticket of tickets">
+                    <td>{{ticket.ticketId}}</td>
+                    <td>{{ticket.firstName}}</td>
+                    <td>{{ticket.lastName}}</td>
+                    <td>{{ticket.fromDate}}</td>
+                    <td>{{ticket.toDate}}</td>
+                    <td>{{ticket.departing}}</td>
+                    <td>{{ticket.returning}}</td>
+                    <td>{{
+                        (ticket.classType==1) ? "Economy":(ticket.classType==2)? "Premium":"Business"
+                    }}</td>
+                    <td><button class="btn btn-success" (click)="editTicket(ticket)">Edit</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteTicket(ticket)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
